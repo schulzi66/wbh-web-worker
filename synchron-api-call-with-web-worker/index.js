@@ -2,7 +2,7 @@
 // Starten der Zeitmessung
 const timer = document.querySelector('#timer');
 timer.innerText = 'Zeit vergangen: 0';
-const start = performance.now();
+let start = 0;
 
 // Erzeugen des Web Worker
 const sortWebWorker = new Worker('worker.js');
@@ -17,5 +17,8 @@ sortWebWorker.onmessage = (event) => {
     timer.textContent = `Zeit vergangen: ${end - start} ms`;
 }
 
-sortWebWorker.postMessage('start');
+document.getElementById('apiBtn').addEventListener('click', () => {
+    start = performance.now();
+    sortWebWorker.postMessage('start');
+})
 
